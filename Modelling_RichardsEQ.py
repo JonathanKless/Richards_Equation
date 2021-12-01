@@ -6,25 +6,25 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #Define dictionary with input parameters (soil characteristics)
-VGP=dict()    
-VGP['theta_s']=0.43
-VGP['theta_r']=0.078
-VGP['alpha']=0.016  
-VGP['n']=2.16
-VGP['Ksat']=0.001 
-VGP['lambda_k']=0.5 
+VGP = dict()    
+VGP['theta_s'] = 0.43
+VGP['theta_r'] = 0.078
+VGP['alpha'] = 0.016  
+VGP['n'] = 2.16
+VGP['Ksat'] = 0.001 
+VGP['lambda_k'] = 0.5 
 
 #Define geometry and time information
-depth=-100              
-dz=1 
-nz=int(abs(depth-dz)/dz)              
-z=np.linspace(0,depth, nz)  
+depth = -100              
+dz = 1 
+nz = int(abs(depth-dz)/dz)              
+z = np.linspace(0,depth, nz)  
 # dz=abs(z[2]-z[1])  
 
-tFinal=3*60*60 
-dt=1 
-nt=int((tFinal-dt)/dt)
-t=np.linspace(0, tFinal, nt)
+tFinal = 3*60*60 
+dt = 1 
+nt = int((tFinal-dt)/dt)
+t = np.linspace(0, tFinal, nt)
 # dt=t[2]-t[1]
 
 
@@ -61,8 +61,8 @@ def VGE(h, VGP):
     return theta, K, C
 
 #Skeleton matrices 
-h=np.zeros((nz,nt))
-theta=np.zeros((nz,nt))
+h = np.zeros((nz,nt))
+theta = np.zeros((nz,nt))
 
 #Define initial conditions of the system (t=0)
 hBot_t0 = -200                 # h = matric potential
@@ -82,10 +82,10 @@ qBot = 0
 
 #Function to compute Kplus at (i+0.5) and Kminus at (i-0.5) //geometric mean method
 def K_mean(K):
-    Kplus=np.sqrt(K[1:]*K[:nz-1])
-    Kplus=np.append(Kplus,[K[-1]], axis=0)           
-    Kminus=np.sqrt(K[:-1]*K[1:])
-    Kminus=np.append([K[0]],Kminus, axis=0)          
+    Kplus = np.sqrt(K[1:]*K[:nz-1])
+    Kplus = np.append(Kplus,[K[-1]], axis=0)           
+    Kminus = np.sqrt(K[:-1]*K[1:])
+    Kminus = np.append([K[0]],Kminus, axis=0)          
     return Kplus, Kminus
     
 #Filling the matrices using richard's equation, numerical, linearised implementation
