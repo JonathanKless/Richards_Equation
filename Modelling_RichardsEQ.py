@@ -1,5 +1,5 @@
 """
-Richard's equation explicit numerical modelling
+Richard's equation explicit numerical scheme
 """
 
 import numpy as np
@@ -42,7 +42,7 @@ t = np.linspace(0, tFinal, nt)
 #     return C
 
 
-#Define VGE functions to get theta, K, C 
+#Using Van-Genuchten-Mualem model to get theta, K, C 
 def VGE(h, VGP):
     theta_r = VGP['theta_r']
     theta_s = VGP['theta_s']
@@ -70,7 +70,7 @@ HBot_t0 = hBot_t0+z[-1]        # H = water potential
 HTop_t0 = HBot_t0                 
 hTop_t0 = HTop_t0-z[0]             
 h0 = np.linspace(hTop_t0,hBot_t0, nz)
-theta0,K0,C0= VGE(h0,VGP) 
+theta0,K0,C0 = VGE(h0,VGP) 
 
 #Storing initial conditions in matrices
 h[:,0] = h0
