@@ -28,7 +28,7 @@ t = np.linspace(0, tFinal, nt)
 # dt=t[2]-t[1]
 
 
-#Finding approximate solution for C(h) equation, needs to be copy-pased :-(
+#Finding approximate solution for C(h) equation, needs to be copy-pasted :-(
 # def derive_Ch():
 #     import sympy as sym
 #     theta_s = sym.symbols("theta_s")
@@ -73,8 +73,8 @@ h0 = np.linspace(hTop_t0,hBot_t0, nz)
 theta0,K0,C0= VGE(h0,VGP) 
 
 #Storing initial conditions in matrices
-h[:,0]=h0
-theta[:,0]=theta0
+h[:,0] = h0
+theta[:,0] = theta0
 
 #Known boundary conditions   
 h0[0] = -5
@@ -90,8 +90,8 @@ def K_mean(K):
     
 #Filling the matrices using richard's equation, numerical, linearised implementation
 for j in range(0, nt-1):
-    i = 0
-    h[i,j+1] = -5       
+    i = 0                                                       #boundary condition (z=0)
+    h[i,j+1] = -5                                               
                                                                     
     theta_tem, K, C = VGE(h[:,j],VGP)
     Kplus, Kminus = K_mean(K)
@@ -101,7 +101,7 @@ for j in range(0, nt-1):
         -Kplus[i]*(h[i,j]-h[i+1,j])/dz\
         +(Kminus[i]- Kplus[i])) + h[i,j]
              
-    i = -1
+    i = -1                                                      #boundary condition (z=-100)
     h[i,j+1] = (dt/(C[i]*dz))*(Kminus[i]*(h[i-1,j]-h[i,j])/dz\
                 + qBot\
                 + (Kminus[i]- 0))\
